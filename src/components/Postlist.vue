@@ -19,17 +19,19 @@
           <li v-for="post in posts" :key="post.id">
             <img :src="post.author.avatar_url" alt="">
             <span>
-                    <span class="reply_count">{{post.reply_count}}</span>
-                    /{{post.visit_count}}
-                  </span>
+              <span class="reply_count">{{post.reply_count}}</span>
+              /<span class="visit_count">{{post.visit_count}}</span>
+             </span>
             <span>置顶</span>
             <span>内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容</span>
-            <hr>
+            <span class="comment_wrapper">
+              <img :src="post.author.avatar_url" alt="">
+              <span>时间</span>
+            </span>
           </li>
         </ul>
       </div>
-      
-
+    
     
     </div>
     <div>
@@ -124,30 +126,62 @@
   /*  color: #ffffff;*/
   /*  background: #8ebb39;*/
   /*}*/
-  .list_wrapper{
-  
+  .list_wrapper {
   }
   .list {
     background: #ffffff;
-    height: 600px;
   }
-  .list>li>img{
+  .list > li {
+    border-bottom: 1px solid #f0f0f0;
+    line-height: 50px;
+    width: 100%;
+    display: inline-block;
+  }
+  .list > li > img:first-of-type {
     width: 30px;
     height: 30px;
-    border-radius:3px;
+    border-radius: 3px;
     margin: 10px;
+    vertical-align: top;
   }
-  .list>li>span:nth-child(2){
+  .list > li > span:nth-child(2) {
     width: 50px;
+    font-size: 8px;
   }
-  .list>li>span:nth-child(2)>span{
-  
+  .list > li > span:nth-child(2) > span:nth-child(1) {
+    font-size: 12px;
+    color: #987bbc;
+    font-weight: bold;
   }
-  .list>li>span:nth-child(3){
-  
+  .list > li > span:nth-child(2) > span:nth-child(2) {
+    font-size: 10px;
+    color: #b4b4b4;
   }
-  .list>li>span:nth-child(4){
-  
+  .list > li > span:nth-child(3) {
+    font-size: 10px;
+    margin: 0 10px;
+    padding: 3px 4px;
+    border-radius: 3px;
+    color: #ffffff;
+    background: #8ebb39;
   }
-  
+  .list > li > span:nth-child(4) {
+    font-size: 18px;
+  }
+  .list > li > .comment_wrapper{
+    float: right;
+  }
+  .list > li > .comment_wrapper> img{
+    width: 18px;
+    height: 18px;
+    vertical-align: -3px;
+    border-radius: 3px;
+    margin-right: 10px;
+  }
+  .list > li > .comment_wrapper> span{
+    margin-right: 10px;
+    color: #798086;
+    font-size: 12px;
+  }
+
 </style>
