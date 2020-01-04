@@ -17,22 +17,22 @@
       <div class="list_wrapper">
         <ul class="list">
           <li v-for="post in posts" :key="post.id">
+            
             <img :src="post.author.avatar_url" alt="">
             <span>
               <span class="reply_count">{{post.reply_count}}</span>
               /<span class="visit_count">{{post.visit_count}}</span>
              </span>
-            <span>置顶</span>
-            <span>内容内容内容内容内容内容内容内容内容内容内容内容内容内容内容</span>
+            <span :class="[{put_good:(post.good  == true),put_top:(post.top  == true),
+        'topiclist-tab':(post.good  != true && post.top  != true)}]">{{post|tabFormatter}}</span>
+            <span>{{post.title}}</span>
             <span class="comment_wrapper">
               <img :src="post.author.avatar_url" alt="">
-              <span>时间</span>
+              <span>{{post.last_reply_at|dateFormatter}}</span>
             </span>
           </li>
         </ul>
       </div>
-    
-    
     </div>
     <div>
     
@@ -73,7 +73,45 @@
       this.isLoading = true;
       this.getData();
     },
-  };
+    filters: {
+      dateFormatter(str) {
+        if (!str) return '';
+        let date = new Date(str);
+        let time = new Date().getTime() - date.getTime(); //现在的时间-传入的时间 = 相差的时间（单位 = 毫秒）
+        if (time < 0) {
+          return '';
+        } else if ((time / 1000 < 30)) {
+          return '刚刚';
+        } else if (time / 1000 < 60) {
+          return parseInt((time / 1000)) + '秒前';
+        } else if ((time / 60000) < 60) {
+          return parseInt((time / 60000)) + '分钟前';
+        } else if ((time / 3600000) < 24) {
+          return parseInt(time / 3600000) + '小时前';
+        } else if ((time / 86400000) < 31) {
+          return parseInt(time / 86400000) + '天前';
+        } else if ((time / 2592000000) < 12) {
+          return parseInt(time / 2592000000) + '月前';
+        } else {
+          return parseInt(time / 31536000000) + '年前';
+        }
+      },
+      tabFormatter(post) {
+        if (post.good == true) {
+          return '精华';
+        } else if (post.top == true) {
+          return '置顶';
+        } else if (post.tab == 'ask') {
+          return '问答';
+        } else if (post.tab == 'share') {
+          return '分享';
+        } else {
+          return '招聘';
+        }
+      },
+    },
+  }
+  ;
 </script>
 
 <style scoped>
@@ -168,20 +206,21 @@
   .list > li > span:nth-child(4) {
     font-size: 18px;
   }
-  .list > li > .comment_wrapper{
+  .list > li > .comment_wrapper {
     float: right;
   }
-  .list > li > .comment_wrapper> img{
+  .list > li > .comment_wrapper > img {
     width: 18px;
     height: 18px;
     vertical-align: -3px;
     border-radius: 3px;
     margin-right: 10px;
   }
-  .list > li > .comment_wrapper> span{
+  .list > li > .comment_wrapper > span {
     margin-right: 10px;
+    display: inline-block;
+    width: 70px;
     color: #798086;
     font-size: 12px;
   }
-
 </style>

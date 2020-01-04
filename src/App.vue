@@ -6,24 +6,25 @@
 </template>
 
 <script>
-import Header from './components/Header'
-import Postlist from './components/Postlist'
+  import Header from './components/Header';
+  import Postlist from './components/Postlist';
 
-export default {
-  name: 'app',
-  components: {
-   Header,
-    Postlist
-  }
-}
+
+  export default {
+    name: 'app',
+    components: {
+      Header,
+      Postlist,
+    },
+  };
 </script>
 
 <style>
-  *{
+  * {
     margin: 0;
     padding: 0;
   }
-  body{
+  body {
     background: #e1e1e1;
   }
 </style>
